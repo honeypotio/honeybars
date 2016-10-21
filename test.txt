@@ -2,3 +2,5 @@ This is my test File.
 collaborators:
 - Kado Damball
 - Sohraab Joshi
+- Kaya Taner
+- Frederik Bohn
