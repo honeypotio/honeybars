@@ -1,13 +1,14 @@
 h1 {
   font: arial;
+  text-align: center;
 }
 
 p {
   font: arial;
+  text-align: center;
 }
 
 * {
   background-color: black;
   color: white;
-  text-align: center;
 }
