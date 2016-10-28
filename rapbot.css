@@ -1,14 +1,15 @@
-h1 {
+* {
+  background-color: black;
+  color: white;
   font: arial;
+}
+
+h1 {
+  /*font: arial;*/
   text-align: center;
 }
 
 p {
-  font: arial;
+  /*font: arial;*/
   text-align: center;
-}
-
-* {
-  background-color: black;
-  color: white;
 }
