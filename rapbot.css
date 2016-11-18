@@ -15,3 +15,8 @@ p {
 form {
   text-align: center;
 }
+
+#error {
+  display: none;
+  color: #ff0000;
+}
