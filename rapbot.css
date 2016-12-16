@@ -20,3 +20,7 @@ form {
   display: none;
   color: #ff0000;
 }
+
+.picked-word {
+  color: limegreen;
+}
