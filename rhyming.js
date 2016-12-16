@@ -4,6 +4,7 @@ form.addEventListener('submit', function(event) {
   event.preventDefault(); //prevents page from e.g. refreshing
 
   var word = this.word.value;
+  this.word.value = '';
   getRhymingWords(word);
 });
 
