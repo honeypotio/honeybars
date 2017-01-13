@@ -24,3 +24,14 @@ form {
 .picked-word {
   color: limegreen;
 }
+
+.images {
+  margin-top: 100px;
+  text-align: center;
+  height: 250px;
+}
+
+.images img {
+  /*width: 20%;*/
+  height: 100%;
+}
