@@ -31,7 +31,24 @@ form {
   height: 250px;
 }
 
-.images img {
+/*.images-middle {
+  margin: 100px;
+  position: relative;
+  top: 0;
+  left: 0;
+  text-align: center;
+  height: 250px;
+}
+
+.images-bottom {
+  position: relative;
+  top: 0;
+  left: 0;
+  text-align: center;
+  height: 250px;
+}*/
+
+img {
   /*width: 20%;*/
   height: 100%;
 }
