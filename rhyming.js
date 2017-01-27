@@ -1,4 +1,7 @@
 var form = document.getElementById('form');
+var slackForm = document.getElementById('slackForm');
+var latestWord = '';
+var lastestRhymes = [];
 
 form.addEventListener('submit', function(event) {
   event.preventDefault(); //prevents page from e.g. refreshing
@@ -23,7 +26,33 @@ function getRhymingWords(input) {
         return ;
       }
 
+      lastestRhymes = jsonResponse[0].words;
+      latestWord = word;
+      
       var rhymingWords = jsonResponse[0].words.join(' ');
       $('#wordList').prepend('<p>' + output + ': ' + rhymingWords + '</p>');
     });
 }
+
+function postToSlack(word, rhymingWords) {
+  var token = slackForm.token.value;
+  // Error Handling
+  if (word.length === 0 || rhymingWords.length === 0 || token.length === 0) {
+    alert('You needs to rhyme first');
+    return;
+  }
+
+  var rhymingText = "Word: " + word + "\nRhymes: " + rhymingWords.join(", ");
+  var slackURL = 'https://slack.com/api/chat.postMessage?token=' +token+ '&channel=honeybars&text=' +rhymingText+ '&pretty=1'
+
+  // Posts to slack using Slack's API
+  fetch(slackURL, {
+    method: 'POST'
+  });
+}
+
+var slackButton = document.querySelector('#slackForm input[type="submit"]');
+
+slackButton.addEventListener('click', function() {
+  postToSlack(latestWord, lastestRhymes);
+});
