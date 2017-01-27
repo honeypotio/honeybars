@@ -43,7 +43,7 @@ function postToSlack(word, rhymingWords) {
   }
   var user = slackForm.user.value;
   var rhymingText = "Word: " + word + " \nRhymes: " + rhymingWords.join(", ");
-  var slackURL = 'https://slack.com/api/chat.postMessage?token=' +token+ '&channel=honeybars&text=' +rhymingText+ '&username=' +user+ '&pretty=1'
+  var slackURL = 'https://slack.com/api/chat.postMessage?token=' +token+ '&channel=honeybars&text=' +rhymingText+ '&as_user=' +user+ '&pretty=1'
 
   // Posts to slack using Slack's API
   fetch(slackURL, {
