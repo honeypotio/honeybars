@@ -53,6 +53,7 @@ function postToSlack(word, rhymingWords) {
 
 var slackButton = document.querySelector('#slackForm input[type="submit"]');
 
-slackButton.addEventListener('click', function() {
+slackButton.addEventListener('click', function(e) {
+  e.preventDefault();
   postToSlack(latestWord, lastestRhymes);
 });
