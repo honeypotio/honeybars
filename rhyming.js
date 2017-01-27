@@ -42,7 +42,7 @@ function postToSlack(word, rhymingWords) {
     return;
   }
 
-  var rhymingText = "Word: " + word + "\nRhymes: " + rhymingWords.join(", ");
+  var rhymingText = "Word: " + word + " \nRhymes: " + rhymingWords.join(", ");
   var slackURL = 'https://slack.com/api/chat.postMessage?token=' +token+ '&channel=honeybars&text=' +rhymingText+ '&pretty=1'
 
   // Posts to slack using Slack's API
