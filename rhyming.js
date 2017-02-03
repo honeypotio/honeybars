@@ -16,7 +16,7 @@ function getRhymingWords(input) {
   var word = words[words.length - 1];
   var output = input.replace(word, '<span class="picked-word">' + word + '</span>')
 
-  fetch("https://api.wordnik.com/v4/word.json/" + word + "/relatedWords?&useCanonical=false&relationshipTypes=rhyme&limitPerRelationshipType=10&api_key=7c91c9072060dec2af00a04a7ab0fa6d0530cf8a943cafa90")
+  fetch("https://api.wordnik.com/v4/word.json/" + word + "/relatedWords?&useCanonical=false&relationshipTypes=rhyme&limitPerRelationshipType=1000&api_key=7c91c9072060dec2af00a04a7ab0fa6d0530cf8a943cafa90")
     .then(function(response){
       return response.json();
     })
@@ -26,12 +26,39 @@ function getRhymingWords(input) {
         return ;
       }
 
-      lastestRhymes = jsonResponse[0].words;
+      var uniqueWords = pickUniqueWords(jsonResponse[0].words);
+      var randomWords = pickTenRandomWords(uniqueWords);
+
+      // Cache for Slack
+      lastestRhymes = randomWords;
       latestWord = word;
-      
-      var rhymingWords = jsonResponse[0].words.join(' ');
-      $('#wordList').prepend('<p>' + output + ': ' + rhymingWords + '</p>');
+
+      $('#wordList').prepend('<p>' + output + ': ' + randomWords.join(' ') + '</p>');
     });
+}
+
+function pickUniqueWords(list) {
+  var uniqueWords = [];
+  for (var index=0; index < list.length; index+=1) {
+    if (uniqueWords.indexOf(list[index].toLowerCase()) === -1) {
+      uniqueWords.push(list[index].toLowerCase());
+    }
+  }
+  return uniqueWords;
+};
+
+function pickTenRandomWords(list) {
+  var randomWords = [];
+  
+  for (var counter = 0; counter<10; counter++) {
+    var randomWord = list[Math.floor(Math.random() * list.length)];
+    if (randomWords.indexOf(randomWord) === -1) {
+      randomWords.push(randomWord);
+    } else {
+      counter-=1;
+    }
+  }
+  return randomWords;
 }
 
 function postToSlack(word, rhymingWords) {
