@@ -32,7 +32,7 @@ function getRhymingWords(input) {
       // Cache for Slack
       lastestRhymes = randomWords;
       latestWord = word;
-
+      speakALine(word, randomWords.join(' '))
       $('#wordList').prepend('<p>' + output + ': ' + randomWords.join(' ') + '</p>');
     });
 }
@@ -99,4 +99,17 @@ if (localStorage.getItem('slackToken')) {
 // store a slack token in our localStorage
 function storeSlackToken(token) {
   localStorage.setItem('slackToken', token);
+}
+
+// Speaks a line
+function speakALine(word, rhymes) {
+  var message = new SpeechSynthesisUtterance();
+  var allVoices = speechSynthesis.getVoices();
+  var fred = allVoices.filter(function(voice){return voice.name === "Fred"})[0];
+
+  message.text = word + " rhymes with: " + rhymes + " keep on keeping on brotha!";
+  message.voice = fred;
+  message.rate = 0.6
+
+  speechSynthesis.speak(message);
 }
