@@ -16,7 +16,7 @@ function getRhymingWords(input) {
   var word = words[words.length - 1];
   var output = input.replace(word, '<span class="picked-word">' + word + '</span>')
 
-  fetch("https://api.wordnik.com/v4/word.json/" + word.toLowerCase() + "/relatedWords?&useCanonical=false&relationshipTypes=rhyme&limitPerRelationshipType=1000&api_key=7c91c9072060dec2af00a04a7ab0fa6d0530cf8a943cafa90")
+  fetch("https://api.wordnik.com/v4/word.json/" + word.toLowerCase() + "/relatedWords?&useCanonical=false&relationshipTypes=rhyme&limitPerRelationshipType=100&api_key=7c91c9072060dec2af00a04a7ab0fa6d0530cf8a943cafa90")
     .then(function(response){
       return response.json();
     })
@@ -27,13 +27,15 @@ function getRhymingWords(input) {
       }
 
       var uniqueWords = pickUniqueWords(jsonResponse[0].words);
-      var randomWords = pickTenRandomWords(uniqueWords);
+      var randomWords = pickRandomWords(uniqueWords, 10);
 
       // Cache for Slack
       lastestRhymes = randomWords;
       latestWord = word;
       speakALine(word, randomWords.join(' '))
       $('#wordList').prepend('<p>' + output + ': ' + randomWords.join(' ') + '</p>');
+    }).catch(function(error) {
+      console.error(error);
     });
 }
 
@@ -47,10 +49,14 @@ function pickUniqueWords(list) {
   return uniqueWords;
 };
 
-function pickTenRandomWords(list) {
+function pickRandomWords(list, amount) {
+  if (list.length < amount) {
+    return list;
+  }
+
   var randomWords = [];
 
-  for (var counter = 0; counter<10; counter++) {
+  for (var counter = 0; counter<amount; counter++) {
     var randomWord = list[Math.floor(Math.random() * list.length)];
     if (randomWords.indexOf(randomWord) === -1) {
       randomWords.push(randomWord);
@@ -71,13 +77,23 @@ function postToSlack(word, rhymingWords) {
   }
   var rhymingText = "Word: " + word + " \nRhymes: " + rhymingWords.join(", ");
   var slackURL = 'https://slack.com/api/chat.postMessage?token=' +token+ '&channel=honeybars&text=' +rhymingText+ '&as_user=true&pretty=1'
+  var errors = {
+    not_authed: 'No authentication token provided',
+    invalid_auth: 'Invalid authentication token'
+  };
 
   storeSlackToken(token);
 
   // Posts to slack using Slack's API
   fetch(slackURL, {
     method: 'POST'
-  });
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    if (json.ok === false) {
+      alert(errors[json.error]);
+    }
+  })
 }
 
 
