@@ -16,6 +16,15 @@ form {
   text-align: center;
 }
 
+button {
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: #333333;
+  margin: 0 10px;
+  box-shadow: 0px 2px 5px #bdbdbd;
+}
+
 #error {
   display: none;
   color: #ff0000;
@@ -29,6 +38,16 @@ form {
   margin-top: 100px;
   text-align: center;
   height: 250px;
+}
+
+#preach-wrapper {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#slack-confirm {
+  display: none;
+  color: limegreen;
 }
 
 /*.images-middle {

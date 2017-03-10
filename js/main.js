@@ -1,0 +1,2 @@
+var latestWord = '';
+var latestRhymes = [];

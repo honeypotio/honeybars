@@ -15,6 +15,7 @@
     Get your words straight mofo!
   </p>
   <form id="slackForm">
+    <p id="slack-confirm">The rhymes were successfully shipped to slack</p>
     <input id="token" type="text" name="token" placeholder="Slack Token">
     <input type="submit" value="Post To Slack">
   </form>
@@ -23,6 +24,12 @@
     <input type="text" name="word">
     <input type="submit" value="Spit some rhymes brother">
   </form>
+
+  <div id="preach-wrapper">
+    <button id="preach">Spit the Last Rhymes</button>
+    <button id="cancel">Shut the Fuck Up</button>
+  </div>
+
   <p>For now, how about you try some rhyming yourself?</p>
   <div id="wordList">
 
@@ -51,6 +58,10 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.2/fetch.min.js"></script>
-  <script type="text/javascript" src="rhyming.js"></script>
+  <script type="text/javascript" src="./js/main.js"></script>
+  <script type="text/javascript" src="./js/utils.js"></script>
+  <script type="text/javascript" src="./js/rhyming.js"></script>
+  <script type="text/javascript" src="./js/slack.js"></script>
+  <script type="text/javascript" src="./js/speaking.js"></script>
 </body>
 </html>
